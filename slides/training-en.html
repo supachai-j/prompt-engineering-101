@@ -11,76 +11,440 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
 
 <style>
-  :root { --accent: #d97757; --accent2: #5d8aa8; --muted: #9aa0a6; }
+  :root { --accent: #d97757; --accent2: #5d8aa8; --accent3: #6dba88; --muted: #9aa0a6; }
   .reveal { font-family: "Inter","Segoe UI",system-ui,sans-serif; font-size: 30px; }
   .reveal h1, .reveal h2, .reveal h3 { font-weight: 600; text-transform: none; letter-spacing: -0.01em; line-height: 1.2; }
   .reveal h1 { color: var(--accent); font-size: 2.2em; }
   .reveal h2 { color: var(--accent); font-size: 1.35em; margin-bottom: 0.35em; }
-  .reveal h3 { color: var(--accent2); font-size: 1.05em; }
+  .reveal h3 { color: var(--accent2); font-size: 1.05em; margin-top: 0.6em; }
   .reveal section { text-align: left; }
   .reveal .center { text-align: center; }
   .reveal pre { font-size: 0.46em; box-shadow: none; border-left: 3px solid var(--accent); margin: 0.4em auto; line-height: 1.35; max-width: 100%; }
   .reveal pre code { padding: 0.6em 0.8em; }
   .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px; font-size: 0.95em; }
-  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; }
+  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; line-height: 1.35; }
   .reveal th, .reveal td { padding: 5px 10px; border-bottom: 1px solid #444; vertical-align: top; }
   .reveal th { color: var(--accent); font-weight: 600; }
-  .reveal .muted { color: var(--muted); font-size: 0.78em; }
-  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .muted { color: var(--muted); font-size: 0.78em; line-height: 1.45; }
+  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill.b { background: rgba(93,138,168,0.18); color: var(--accent2); }
+  .reveal .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9em; }
+  .reveal .card { background: rgba(255,255,255,0.04); border-left: 3px solid var(--accent2); padding: 0.7em 0.9em; border-radius: 6px; font-size: 0.78em; line-height: 1.45; }
+  .reveal .card h3 { margin: 0 0 0.3em; font-size: 1em; }
+  .reveal .quote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 0.8em; color: #ddd; font-size: 0.85em; margin: 0.5em 0; }
   .reveal ul, .reveal ol { padding-left: 1.2em; }
   .reveal ul li, .reveal ol li { margin: 0.18em 0; line-height: 1.4; }
   .reveal .big { font-size: 1.15em; line-height: 1.4; }
+  .reveal .track { color: var(--accent); font-size: 0.65em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.4em; display: block; }
+  .reveal .track.b { color: var(--accent2); }
 </style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
-<!-- TITLE -->
+<!-- 1 — Title -->
 <section class="center">
   <h1>Prompt Engineering 101</h1>
-  <h3 style="color: #ddd">Vendor-neutral fundamentals + production patterns for prompting any LLM</h3>
-  <p class="muted">v1 · slides for instructor-led sessions</p>
+  <h3 style="color: #ddd">Vendor-neutral fundamentals + production patterns</h3>
+  <p class="muted">v1 · 2026-05-09 · 2 tracks · ~25-90 min</p>
   <p><span class="pill">EN</span><span class="pill">also in ภาษาไทย</span></p>
 </section>
 
-<!-- AGENDA -->
+<!-- 2 — What you will learn -->
 <section>
-  <h2>What we'll cover</h2>
-  <ol>
-    <li>Pillar one — replace with concrete topic</li>
-    <li>Pillar two — replace with concrete topic</li>
-    <li>Pillar three — replace with concrete topic</li>
-    <li>Pillar four — replace with concrete topic</li>
-  </ol>
-  <p class="muted">By the end you should be able to ____.</p>
+  <h2>What you'll learn</h2>
+  <div class="grid2">
+    <div class="card">
+      <span class="track">Track A</span>
+      <h3>Foundations</h3>
+      <ul>
+        <li>The mental model</li>
+        <li>Prompt elements + LLM settings</li>
+        <li>Zero-shot vs few-shot</li>
+        <li>Chain-of-Thought</li>
+        <li>When PE is NOT the right lever</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="track b">Track B</span>
+      <h3>Production patterns</h3>
+      <ul>
+        <li>System prompts</li>
+        <li>Structured output</li>
+        <li>Chaining + tool use + RAG</li>
+        <li>Eval-driven development</li>
+        <li>Injection + defensive prompting</li>
+        <li>Agent patterns</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<!-- DEFINITION -->
+<!-- 3 — Definition -->
 <section>
-  <h2>Definition</h2>
-  <p class="big">Replace this with the one-sentence definition of your topic — clear, vendor-neutral, exact.</p>
+  <h2>What is prompt engineering?</h2>
+  <p class="big">The discipline of communicating with LLMs to steer their behaviour <strong>without updating model weights</strong>.</p>
+  <p class="quote">"Methods for how to communicate with LLM to steer its behavior for desired outcomes without updating the model weights." — Lilian Weng</p>
   <ul>
-    <li>Key fact 1</li>
-    <li>Key fact 2</li>
-    <li>Key fact 3</li>
+    <li>You change <em>inputs</em>, not parameters</li>
+    <li>The lever is text + settings + examples</li>
+    <li>The goal is reliable, evaluable outputs</li>
   </ul>
 </section>
 
-<!-- EXAMPLE -->
+<!-- 4 — Prerequisites -->
 <section>
-  <h2>A concrete example</h2>
-<pre><code class="language-yaml">// Replace with real example code
-example:
-  field: value
-  another: data</code></pre>
-  <p class="muted">Worked examples beat abstract explanations.</p>
+  <h2>Three prerequisites</h2>
+  <p>Per Anthropic's docs — before prompt engineering helps:</p>
+  <ol>
+    <li>Clear definition of <strong>success criteria</strong></li>
+    <li>Way to <strong>empirically test</strong> against them</li>
+    <li>A <strong>first-draft prompt</strong> to improve</li>
+  </ol>
+  <p class="muted">Without these three, you're optimising in the dark.</p>
 </section>
 
-<!-- CLOSE -->
+<!-- 5 — When PE -->
+<section>
+  <h2>When PE is (and isn't) the right lever</h2>
+  <table>
+    <tr><th>Problem</th><th>Right lever</th></tr>
+    <tr><td>Output format wrong</td><td>Prompt engineering</td></tr>
+    <tr><td>Output quality low</td><td>Prompt engineering</td></tr>
+    <tr><td>Latency too high</td><td>Smaller / faster model</td></tr>
+    <tr><td>Cost too high</td><td>Different model / architecture</td></tr>
+    <tr><td>Knowledge cutoff</td><td>RAG (retrieval)</td></tr>
+    <tr><td>Stable behaviour at scale</td><td>Fine-tuning</td></tr>
+  </table>
+</section>
+
+<!-- 6 — Anatomy -->
+<section>
+  <h2>Anatomy: 4 elements of a prompt</h2>
+  <table>
+    <tr><th>Element</th><th>Question</th></tr>
+    <tr><td>Instruction</td><td>What to do</td></tr>
+    <tr><td>Context</td><td>Background that informs</td></tr>
+    <tr><td>Input data</td><td>What to act on</td></tr>
+    <tr><td>Output indicator</td><td>Format / structure</td></tr>
+  </table>
+  <p class="quote">"Show your prompt to a colleague with minimal context. If they'd be confused, Claude will be too."</p>
+</section>
+
+<!-- 7 — Bare vs full -->
+<section>
+  <h2>Bare instruction vs full prompt</h2>
+<pre><code>❌ "Summarise this."
+
+✅ "Summarise the following customer review for our weekly report.
+   Focus on actionable feedback. Output 3 bullets, ≤15 words each.
+   &lt;review&gt;{{text}}&lt;/review&gt;"</code></pre>
+  <p class="muted">Full version: instruction + context + input data + output indicator.</p>
+</section>
+
+<!-- 8 — Settings -->
+<section>
+  <h2>The 6 universal LLM settings</h2>
+  <table>
+    <tr><th>Setting</th><th>Effect</th></tr>
+    <tr><td><code>temperature</code></td><td>Randomness — 0 deterministic, higher creative</td></tr>
+    <tr><td><code>top_p</code></td><td>Nucleus sampling (use OR temperature, not both)</td></tr>
+    <tr><td><code>max_length</code></td><td>Cap output tokens</td></tr>
+    <tr><td><code>stop</code></td><td>Strings that halt generation</td></tr>
+    <tr><td><code>frequency_penalty</code></td><td>Discourage repeated tokens</td></tr>
+    <tr><td><code>presence_penalty</code></td><td>Discourage repeated topics</td></tr>
+  </table>
+  <p class="muted">Temperature controls <em>variety</em>, not quality.</p>
+</section>
+
+<!-- 9 — Claude effort -->
+<section>
+  <h2>Vendor-specific: Claude <code>effort</code></h2>
+  <table>
+    <tr><th>Level</th><th>When to use</th></tr>
+    <tr><td><code>max</code></td><td>Hardest reasoning; can over-think</td></tr>
+    <tr><td><code>xhigh</code></td><td>Coding / agentic work</td></tr>
+    <tr><td><code>high</code></td><td>Default for intelligence-sensitive tasks</td></tr>
+    <tr><td><code>medium</code></td><td>Cost-sensitive; trades intelligence</td></tr>
+    <tr><td><code>low</code></td><td>Latency-sensitive; scoped tasks</td></tr>
+  </table>
+  <p class="muted"><span class="pill b">CLAUDE 4.x</span> No direct cross-vendor equivalent.</p>
+</section>
+
+<!-- 10 — Zero-shot -->
+<section>
+  <h2>Zero-shot — always start here</h2>
+  <p>Give the task with <strong>no examples</strong>. Modern instruction-tuned models reliably handle:</p>
+  <ul>
+    <li>Sentiment classification, summarisation, translation</li>
+    <li>Standard extraction tasks with clear schemas</li>
+    <li>Generation with simple constraints</li>
+  </ul>
+  <p>If it works → you're done. Don't add examples for the sake of it.</p>
+</section>
+
+<!-- 11 — Few-shot -->
+<section>
+  <h2>Few-shot — when zero-shot underperforms</h2>
+<pre><code>Classify as: BILLING, BUG, FEATURE, OTHER
+
+Example: "Charges me twice every month."  → BILLING
+Example: "Click 'Save', page reloads."    → BUG
+Example: "Could you add dark mode?"       → FEATURE
+
+Now: "I love the new logo!"
+→</code></pre>
+  <p>Sweet spot: <strong>2-5 examples</strong>. &gt;10 → diminishing returns; consider RAG.</p>
+</section>
+
+<!-- 12 — Few-shot bias -->
+<section>
+  <h2>Few-shot bias gotchas</h2>
+  <p class="muted">Three documented biases (Zhao et al., 2021):</p>
+  <ul>
+    <li><strong>Majority label bias</strong> — favours frequent label</li>
+    <li><strong>Recency bias</strong> — repeats final examples' labels</li>
+    <li><strong>Common token bias</strong> — prefers frequent tokens</li>
+  </ul>
+  <h3>Mitigation</h3>
+  <ul>
+    <li>Balance label distribution</li>
+    <li>Randomise example order</li>
+    <li>Positive examples beat negative ("don't do X")</li>
+  </ul>
+</section>
+
+<!-- 13 — Chain-of-Thought -->
+<section>
+  <h2>Chain-of-Thought (CoT)</h2>
+  <p class="big">Ask the model to <strong>think out loud</strong> before answering.</p>
+<pre><code>Let's think step by step.
+Show your reasoning before answering.</code></pre>
+  <p class="muted">Big wins on math + multi-step logic. No help on translation or recall.</p>
+</section>
+
+<!-- 14 — Decision tree -->
+<section>
+  <h2>Decision tree — what's the right tool?</h2>
+<pre><code>Is the problem about HOW the model responds?
+  → prompt engineering
+
+Is the problem about KNOWLEDGE the model lacks?
+  → RAG
+
+Is the problem about STABLE behaviour at scale?
+  → fine-tuning
+
+Is the problem about LATENCY or COST?
+  → switch model</code></pre>
+</section>
+
+<!-- 15 — Track B intro -->
+<section class="center">
+  <p class="track b">— end of Track A —</p>
+  <h2 style="margin-top: 0.5em;">Track B — production patterns</h2>
+  <p class="muted">For engineers building LLM applications.</p>
+</section>
+
+<!-- 16 — System prompts -->
+<section>
+  <h2>System prompts — set persona at API level</h2>
+  <table>
+    <tr><th>Goal</th><th>Where</th></tr>
+    <tr><td>Persona / expertise</td><td>system</td></tr>
+    <tr><td>Constraints</td><td>system</td></tr>
+    <tr><td>Output format defaults</td><td>system</td></tr>
+    <tr><td>Per-task instructions</td><td>user</td></tr>
+    <tr><td>The actual question/data</td><td>user</td></tr>
+  </table>
+  <p class="muted">Concrete behaviour rules &gt;&gt; abstract expertise claims.</p>
+</section>
+
+<!-- 17 — Structured output -->
+<section>
+  <h2>Structured output — 3 techniques</h2>
+  <ol>
+    <li><strong>XML tags</strong> — Claude was trained on these</li>
+    <li><strong>JSON with explicit schema</strong> — vendor-neutral</li>
+    <li><strong>Prefilling</strong> — start the assistant turn with <code>{</code></li>
+  </ol>
+  <p>Best reliability: <strong>schema + prefill together</strong> ("the double belt").</p>
+</section>
+
+<!-- 18 — Chaining -->
+<section>
+  <h2>Prompt chaining</h2>
+<pre><code>Plan → Validate → Execute
+
+If validate fails → loop back to Plan with the error.</code></pre>
+  <p class="muted">Each step simpler, easier to debug, easier to evaluate.</p>
+</section>
+
+<!-- 19 — Tool use -->
+<section>
+  <h2>Tool use / function calling</h2>
+<pre><code>1. Define tools (name, description, parameter schema)
+2. Send request + tools to model
+3. Model responds with text OR tool call
+4. Your code executes the tool
+5. Send result back; loop until done</code></pre>
+  <p class="muted">The <strong>description</strong> triggers the call. Treat it as prompt engineering: third-person, what + when.</p>
+</section>
+
+<!-- 20 — RAG -->
+<section>
+  <h2>Retrieval-Augmented Generation</h2>
+<pre><code>INDEX (one-time): documents → chunks → embeddings → vector store
+
+QUERY (per-request):
+  user query → embed → top-k similar chunks
+  ↓
+  prompt: "Answer using only &lt;context&gt;. Q: {{query}}"
+  ↓
+  output (with citations to chunks)</code></pre>
+  <p class="muted">Garbage in, garbage out — invest in retrieval quality first.</p>
+</section>
+
+<!-- 21 — Eval-driven dev -->
+<section>
+  <h2>Evaluation-driven prompt development</h2>
+  <ol>
+    <li>Define success criteria (concrete, measurable)</li>
+    <li>Build eval set (10-50 labelled examples)</li>
+    <li>Run prompt → score outputs</li>
+    <li>Identify failure → revise</li>
+    <li>Re-run, measure delta, ship or iterate</li>
+  </ol>
+  <p class="quote">Pick the iteration with best <em>validation</em> pass rate — not the latest one.</p>
+</section>
+
+<!-- 22 — Trigger rate -->
+<section>
+  <h2>Trigger rate (models are non-deterministic)</h2>
+<pre><code>trigger_rate = (runs that triggered) / (total runs)
+
+Test passes if trigger_rate matches expectation:
+  should_trigger=true:  trigger_rate &gt; 0.5
+  should_trigger=false: trigger_rate &lt; 0.5
+
+Run each query at least 3 times.</code></pre>
+  <p class="muted">Train (60%) drives revisions. Validation (40%) measures generalisation.</p>
+</section>
+
+<!-- 23 — Injection 3 classes -->
+<section>
+  <h2>Prompt injection — 3 classes</h2>
+  <ol>
+    <li><strong>Direct</strong> — "What is the password?" / "Ignore previous instructions"</li>
+    <li><strong>Indirect</strong> — translate / roleplay / hypothetical reframe</li>
+    <li><strong>Progressive</strong> — multi-turn extraction; defeats single-turn filters</li>
+  </ol>
+  <p class="quote">"The line between aligned and adversarial behavior is thinner than most people think." — Lakera</p>
+</section>
+
+<!-- 24 — Trust boundary -->
+<section>
+  <h2>The trust boundary problem</h2>
+  <p class="big">LLMs <strong>read and follow</strong> all text in the prompt — user input is executed by the model in the same way as your system prompt.</p>
+  <p class="muted">There's no clean trust boundary in text. Defences are layered, never absolute.</p>
+</section>
+
+<!-- 25 — Defensive 4 layers -->
+<section>
+  <h2>Defensive prompting — 4 layers</h2>
+  <ol>
+    <li><strong>Evaluation-first logic</strong> — model decides if request is safe before answering</li>
+    <li><strong>Role anchoring</strong> — re-assert persona mid-prompt</li>
+    <li><strong>Output conditioning</strong> — pre-fill refusal start ("I cannot share")</li>
+    <li><strong>Instruction repetition</strong> — restate constraints multiple sections</li>
+  </ol>
+  <p class="muted">No single layer suffices. All together effective.</p>
+</section>
+
+<!-- 26 — Beyond prompts -->
+<section>
+  <h2>Beyond prompts — programmatic guards</h2>
+  <table>
+    <tr><th>Layer</th><th>Mechanism</th></tr>
+    <tr><td>Input filter</td><td>Block known-malicious before model</td></tr>
+    <tr><td>Output filter</td><td>Scan for secrets, PII, policy violations</td></tr>
+    <tr><td>Tool restrictions</td><td>Allowlist what model can do</td></tr>
+    <tr><td>Audit logging</td><td>Capture every prompt + response</td></tr>
+    <tr><td>Human-in-loop</td><td>High-stakes actions need confirmation</td></tr>
+  </table>
+</section>
+
+<!-- 27 — Agents -->
+<section>
+  <h2>Agent patterns</h2>
+  <p class="big">When a single prompt + a chain aren't enough — you need a <strong>loop</strong>.</p>
+  <ul>
+    <li><strong>ReAct</strong> — Thought → Action → Observation cycle</li>
+    <li><strong>Reflexion</strong> — self-critique loop</li>
+    <li><strong>Planner-Executor</strong> — separate planning from execution</li>
+  </ul>
+  <p class="muted">Always cap iterations. Maintain state. Anchor role throughout.</p>
+</section>
+
+<!-- 28 — Anti-patterns -->
+<section>
+  <h2>Top anti-patterns to avoid</h2>
+  <ul>
+    <li>Vibes-only iteration (no evals)</li>
+    <li>Cranking temperature for "better quality" (wrong knob)</li>
+    <li>Using temperature AND top_p together</li>
+    <li>Negative instructions instead of positive examples</li>
+    <li>Vague tool descriptions</li>
+    <li>Single-layer injection defence</li>
+    <li>Unbounded agent loops</li>
+    <li>Same defences across vendors (re-test on each)</li>
+  </ul>
+</section>
+
+<!-- 29 — Production checklist -->
+<section>
+  <h2>Production checklist</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Foundation</h3>
+      <ul>
+        <li>4 prompt elements present</li>
+        <li>Format specified concretely</li>
+        <li>Settings set deliberately</li>
+        <li>Started zero-shot</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Production</h3>
+      <ul>
+        <li>System prompt ≤1000 tokens</li>
+        <li>Schema + prefill for JSON</li>
+        <li>Eval set with train/val split</li>
+        <li>Adversarial test suite</li>
+        <li>Tool descriptions: what + when</li>
+        <li>Agent loop iteration cap</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 30 — Resources -->
+<section>
+  <h2>Sources cited</h2>
+  <ul>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Anthropic — Prompt engineering overview</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic — Best practices (Claude 4.x)</a></li>
+    <li><a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Lilian Weng — Academic taxonomy</a></li>
+    <li><a href="https://www.promptingguide.ai/">PromptingGuide.ai — vendor-neutral</a></li>
+    <li><a href="https://www.lakera.ai/blog/prompt-engineering-guide">Lakera — safety / injection</a></li>
+  </ul>
+  <p class="muted">All claims in this deck are cited inside the wiki under <code>/wiki/</code>.</p>
+</section>
+
+<!-- 31 — Q&A -->
 <section class="center">
   <h1>Questions?</h1>
-  <p class="muted">Prompt Engineering 101 · slides</p>
+  <p class="muted">Prompt Engineering 101 · 2026-05-09</p>
 </section>
 
 </div></div>
