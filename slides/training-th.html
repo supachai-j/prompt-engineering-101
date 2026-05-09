@@ -12,60 +12,411 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
-  :root { --accent: #d97757; --accent2: #5d8aa8; --muted: #9aa0a6; }
+  :root { --accent: #d97757; --accent2: #5d8aa8; --accent3: #6dba88; --muted: #9aa0a6; }
   .reveal { font-family: "Noto Sans Thai","Inter",system-ui,sans-serif; font-size: 28px; }
   .reveal h1, .reveal h2, .reveal h3 { font-weight: 600; text-transform: none; line-height: 1.25; }
   .reveal h1 { color: var(--accent); font-size: 2em; }
   .reveal h2 { color: var(--accent); font-size: 1.3em; margin-bottom: 0.35em; }
-  .reveal h3 { color: var(--accent2); font-size: 1em; }
+  .reveal h3 { color: var(--accent2); font-size: 1em; margin-top: 0.5em; }
   .reveal section { text-align: left; line-height: 1.5; }
   .reveal .center { text-align: center; }
   .reveal pre { font-size: 0.46em; box-shadow: none; border-left: 3px solid var(--accent);
     font-family: "JetBrains Mono",monospace; line-height: 1.4; margin: 0.4em auto; max-width: 100%; }
   .reveal pre code { padding: 0.6em 0.8em; }
-  .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px;
-    font-family: "JetBrains Mono",monospace; font-size: 0.92em; }
+  .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px; font-family: "JetBrains Mono",monospace; font-size: 0.92em; }
+  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; line-height: 1.35; }
+  .reveal th, .reveal td { padding: 5px 10px; border-bottom: 1px solid #444; vertical-align: top; }
+  .reveal th { color: var(--accent); font-weight: 600; }
   .reveal .muted { color: var(--muted); font-size: 0.78em; line-height: 1.5; }
-  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill.b { background: rgba(93,138,168,0.18); color: var(--accent2); }
+  .reveal .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9em; }
+  .reveal .card { background: rgba(255,255,255,0.04); border-left: 3px solid var(--accent2); padding: 0.7em 0.9em; border-radius: 6px; font-size: 0.78em; line-height: 1.5; }
+  .reveal .card h3 { margin: 0 0 0.3em; font-size: 1em; }
+  .reveal .quote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 0.8em; color: #ddd; font-size: 0.85em; margin: 0.5em 0; }
   .reveal ul, .reveal ol { padding-left: 1.2em; }
   .reveal ul li, .reveal ol li { margin: 0.2em 0; line-height: 1.5; }
   .reveal .big { font-size: 1.15em; line-height: 1.45; }
+  .reveal .track { color: var(--accent); font-size: 0.65em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.4em; display: block; }
+  .reveal .track.b { color: var(--accent2); }
+  .term-en { color: var(--muted); font-style: italic; font-size: 0.9em; }
 </style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
 <section class="center">
-  <h1>Prompt Engineering เจาะลึกเชิงเทคนิค</h1>
-  <h3 style="color: #ddd">พื้นฐานการเขียน prompt + patterns สำหรับใช้งานจริง — ไม่ผูกกับเจ้าใดเจ้าหนึ่ง</h3>
-  <p class="muted">v1 · สไลด์สำหรับวิทยากร</p>
+  <h1>Prompt Engineering 101</h1>
+  <h3 style="color: #ddd">พื้นฐาน + production patterns สำหรับ LLM ทุกค่าย</h3>
+  <p class="muted">v1 · 9 พ.ค. 2569 · 2 tracks · ~25-90 นาที</p>
   <p><span class="pill">TH</span><span class="pill">มี English ด้วย</span></p>
 </section>
 
 <section>
-  <h2>หัวข้อในหลักสูตร</h2>
-  <ol>
-    <li>หลักการที่ 1</li>
-    <li>หลักการที่ 2</li>
-    <li>หลักการที่ 3</li>
-    <li>หลักการที่ 4</li>
-  </ol>
-  <p class="muted">เมื่อจบ ผู้เรียนจะสามารถ ____ ได้</p>
+  <h2>สิ่งที่จะได้เรียนรู้</h2>
+  <div class="grid2">
+    <div class="card">
+      <span class="track">Track A</span>
+      <h3>พื้นฐาน</h3>
+      <ul>
+        <li>Mental model</li>
+        <li>Prompt elements + LLM settings</li>
+        <li>Zero-shot vs few-shot</li>
+        <li>Chain-of-Thought</li>
+        <li>เมื่อไหร่ <span class="term-en">PE</span> <em>ไม่</em> ใช่ทาง</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="track b">Track B</span>
+      <h3>Production patterns</h3>
+      <ul>
+        <li>System prompts</li>
+        <li>Structured output</li>
+        <li>Chaining + tool use + RAG</li>
+        <li>Eval-driven development</li>
+        <li>Injection + defensive prompting</li>
+        <li>Agent patterns</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section>
-  <h2>นิยาม</h2>
-  <p class="big">นิยามของหัวข้อ — ชัดเจน ไม่ผูกกับเจ้าใดเจ้าหนึ่ง</p>
+  <h2>Prompt engineering คืออะไร?</h2>
+  <p class="big">ศาสตร์ของการสื่อสารกับ <span class="term-en">LLM</span> เพื่อบังคับพฤติกรรม <strong>โดยไม่ต้องแก้ weights ของโมเดล</strong></p>
+  <p class="quote">"Methods for how to communicate with LLM to steer its behavior for desired outcomes without updating the model weights." — Lilian Weng</p>
   <ul>
-    <li>ข้อเท็จจริงที่ 1</li>
-    <li>ข้อเท็จจริงที่ 2</li>
+    <li>เปลี่ยน <em>input</em>, ไม่ใช่ parameter</li>
+    <li>ปุ่มที่ดึงคือ text + settings + examples</li>
+    <li>เป้าหมาย: output ที่เชื่อถือได้และวัดผลได้</li>
   </ul>
+</section>
+
+<section>
+  <h2>3 prerequisites ก่อนเริ่ม</h2>
+  <p>ตามเอกสาร Anthropic — ก่อน <span class="term-en">PE</span> จะช่วย ต้องมี:</p>
+  <ol>
+    <li>นิยาม <strong>เกณฑ์ความสำเร็จ</strong> ที่ชัดเจน</li>
+    <li>วิธี <strong>ทดสอบเชิงประจักษ์</strong> เทียบกับเกณฑ์นั้น</li>
+    <li><strong>Prompt ฉบับร่างแรก</strong> ที่อยากปรับ</li>
+  </ol>
+  <p class="muted">ไม่มีครบ 3 = ปรับในที่มืด แก้ตรงนั้นก่อน</p>
+</section>
+
+<section>
+  <h2>เมื่อไหร่ PE คือ (และไม่ใช่) ทางที่ถูก</h2>
+  <table>
+    <tr><th>ปัญหา</th><th>เครื่องมือที่ถูก</th></tr>
+    <tr><td>Output format ผิด</td><td>Prompt engineering</td></tr>
+    <tr><td>คุณภาพ output ต่ำ</td><td>Prompt engineering</td></tr>
+    <tr><td>Latency สูงเกิน</td><td>เปลี่ยนโมเดลให้เล็ก/เร็วกว่า</td></tr>
+    <tr><td>Cost สูงเกิน</td><td>เปลี่ยนโมเดล / architecture</td></tr>
+    <tr><td>Knowledge cutoff</td><td>RAG (retrieval)</td></tr>
+    <tr><td>พฤติกรรมเสถียรที่ scale</td><td>Fine-tuning</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Anatomy: 4 องค์ประกอบของ prompt</h2>
+  <table>
+    <tr><th>องค์ประกอบ</th><th>ตอบคำถาม</th></tr>
+    <tr><td>Instruction</td><td>ทำอะไร</td></tr>
+    <tr><td>Context</td><td>พื้นหลังที่บอก</td></tr>
+    <tr><td>Input data</td><td>ทำกับอะไร</td></tr>
+    <tr><td>Output indicator</td><td>format / structure</td></tr>
+  </table>
+  <p class="quote">"Show your prompt to a colleague with minimal context. If they'd be confused, Claude will be too."</p>
+</section>
+
+<section>
+  <h2>Bare instruction vs full prompt</h2>
+<pre><code>❌ "Summarise this."
+
+✅ "Summarise the following customer review for our weekly report.
+   Focus on actionable feedback. Output 3 bullets, ≤15 words each.
+   &lt;review&gt;{{text}}&lt;/review&gt;"</code></pre>
+  <p class="muted">Full version: instruction + context + input + output indicator</p>
+</section>
+
+<section>
+  <h2>6 settings สากลของ LLM</h2>
+  <table>
+    <tr><th>Setting</th><th>ทำอะไร</th></tr>
+    <tr><td><code>temperature</code></td><td>ความสุ่ม — 0 = deterministic, สูง = สร้างสรรค์</td></tr>
+    <tr><td><code>top_p</code></td><td>Nucleus sampling (ใช้แทน temperature, อย่าใช้พร้อมกัน)</td></tr>
+    <tr><td><code>max_length</code></td><td>จำกัด output tokens</td></tr>
+    <tr><td><code>stop</code></td><td>String ที่หยุด generation</td></tr>
+    <tr><td><code>frequency_penalty</code></td><td>ลดการพูด token ซ้ำ</td></tr>
+    <tr><td><code>presence_penalty</code></td><td>ลดการพูดเรื่องซ้ำ</td></tr>
+  </table>
+  <p class="muted">Temperature คุม <em>ความหลากหลาย</em>, ไม่ใช่ <em>คุณภาพ</em></p>
+</section>
+
+<section>
+  <h2>เฉพาะ Claude: <code>effort</code></h2>
+  <table>
+    <tr><th>Level</th><th>เมื่อไหร่</th></tr>
+    <tr><td><code>max</code></td><td>Reasoning หนักสุด อาจ over-think</td></tr>
+    <tr><td><code>xhigh</code></td><td>Coding / agentic work</td></tr>
+    <tr><td><code>high</code></td><td>Default สำหรับ task ที่ต้องการ intelligence</td></tr>
+    <tr><td><code>medium</code></td><td>Cost-sensitive แลกกับ intelligence</td></tr>
+    <tr><td><code>low</code></td><td>Latency-sensitive, scoped tasks</td></tr>
+  </table>
+  <p class="muted"><span class="pill b">CLAUDE 4.x</span> ไม่มีตัวเทียบโดยตรงข้าม vendor</p>
+</section>
+
+<section>
+  <h2>Zero-shot — เริ่มที่นี่เสมอ</h2>
+  <p>ส่ง task ไปโดย <strong>ไม่มี example</strong> โมเดล instruction-tuned ปัจจุบันจัดการได้:</p>
+  <ul>
+    <li>Sentiment classification, summarisation, translation</li>
+    <li>Extraction tasks ที่ schema ชัดเจน</li>
+    <li>Generation ที่มี constraint ง่าย ๆ</li>
+  </ul>
+  <p>ถ้าใช้ได้ → จบ ไม่ต้องเพิ่ม examples เพื่อความสบายใจ</p>
+</section>
+
+<section>
+  <h2>Few-shot — เมื่อ zero-shot ไม่พอ</h2>
+<pre><code>Classify as: BILLING, BUG, FEATURE, OTHER
+
+Example: "Charges me twice every month."  → BILLING
+Example: "Click 'Save', page reloads."    → BUG
+Example: "Could you add dark mode?"       → FEATURE
+
+Now: "I love the new logo!"
+→</code></pre>
+  <p>Sweet spot: <strong>2-5 examples</strong>. &gt;10 → diminishing returns; พิจารณา RAG</p>
+</section>
+
+<section>
+  <h2>Bias gotchas ของ Few-shot</h2>
+  <p class="muted">3 bias ที่งานวิจัยพบ (Zhao et al., 2021):</p>
+  <ul>
+    <li><strong>Majority label bias</strong> — เลือก label ที่มีบ่อย</li>
+    <li><strong>Recency bias</strong> — ทำซ้ำ label ของ example สุดท้าย</li>
+    <li><strong>Common token bias</strong> — เลือก token ที่บ่อย</li>
+  </ul>
+  <h3>วิธีลด</h3>
+  <ul>
+    <li>สมดุล label distribution</li>
+    <li>สลับลำดับ examples</li>
+    <li>Examples ที่ดีดีกว่า instructions แบบ "อย่าทำ"</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Chain-of-Thought (CoT)</h2>
+  <p class="big">ขอให้โมเดล <strong>คิดออกเสียง</strong> ก่อนตอบ</p>
+<pre><code>Let's think step by step.
+Show your reasoning before answering.</code></pre>
+  <p class="muted">ดีมากกับ math + multi-step logic ไม่ช่วย translation หรือ recall</p>
+</section>
+
+<section>
+  <h2>Decision tree — เครื่องมือที่ใช่</h2>
+<pre><code>ปัญหา "วิธี" ที่โมเดลตอบ?
+  → prompt engineering
+
+ปัญหา "ความรู้" ที่โมเดลขาด?
+  → RAG
+
+ปัญหาพฤติกรรมเสถียรที่ scale?
+  → fine-tuning
+
+ปัญหา latency / cost?
+  → เปลี่ยนโมเดล</code></pre>
+</section>
+
+<section class="center">
+  <p class="track b">— จบ Track A —</p>
+  <h2 style="margin-top: 0.5em;">Track B — Production patterns</h2>
+  <p class="muted">สำหรับวิศวกรที่สร้าง LLM applications</p>
+</section>
+
+<section>
+  <h2>System prompts — ตั้ง persona ที่ระดับ API</h2>
+  <table>
+    <tr><th>เป้าหมาย</th><th>ที่ไหน</th></tr>
+    <tr><td>Persona / expertise</td><td>system</td></tr>
+    <tr><td>Constraints</td><td>system</td></tr>
+    <tr><td>Output format defaults</td><td>system</td></tr>
+    <tr><td>Per-task instructions</td><td>user</td></tr>
+    <tr><td>คำถาม / ข้อมูลจริง</td><td>user</td></tr>
+  </table>
+  <p class="muted">กฎพฤติกรรมที่เป็นรูปธรรม &gt;&gt; การอ้าง expertise นามธรรม</p>
+</section>
+
+<section>
+  <h2>Structured output — 3 เทคนิค</h2>
+  <ol>
+    <li><strong>XML tags</strong> — Claude ถูก train มาบน XML</li>
+    <li><strong>JSON พร้อม schema ชัดเจน</strong> — vendor-neutral</li>
+    <li><strong>Prefilling</strong> — เริ่ม assistant turn ด้วย <code>{</code></li>
+  </ol>
+  <p>Reliability สูงสุด: <strong>schema + prefill ร่วมกัน</strong> ("the double belt")</p>
+</section>
+
+<section>
+  <h2>Prompt chaining</h2>
+<pre><code>Plan → Validate → Execute
+
+ถ้า validate fail → ย้อน Plan พร้อม error</code></pre>
+  <p class="muted">แต่ละ step ง่ายขึ้น debug ง่าย evaluate ง่าย</p>
+</section>
+
+<section>
+  <h2>Tool use / Function calling</h2>
+<pre><code>1. Define tools (name, description, parameter schema)
+2. Send request + tools to model
+3. Model responds with text OR tool call
+4. Your code executes the tool
+5. Send result back; loop until done</code></pre>
+  <p class="muted"><strong>Description</strong> trigger การ call. ปฏิบัติเป็น prompt-engineering task: บุรุษที่สาม, ทำอะไร + เมื่อไหร่</p>
+</section>
+
+<section>
+  <h2>Retrieval-Augmented Generation</h2>
+<pre><code>INDEX (ครั้งเดียว): documents → chunks → embeddings → vector store
+
+QUERY (ทุก request):
+  user query → embed → top-k similar chunks
+  ↓
+  prompt: "Answer using only &lt;context&gt;. Q: {{query}}"
+  ↓
+  output (พร้อม citations to chunks)</code></pre>
+  <p class="muted">Garbage in, garbage out — ลงทุน retrieval quality ก่อน</p>
+</section>
+
+<section>
+  <h2>Evaluation-driven prompt development</h2>
+  <ol>
+    <li>นิยามเกณฑ์ความสำเร็จ (concrete, measurable)</li>
+    <li>สร้าง eval set (10-50 labelled examples)</li>
+    <li>Run prompt → score outputs</li>
+    <li>หา failure → revise</li>
+    <li>Re-run, วัด delta, ship หรือ iterate</li>
+  </ol>
+  <p class="quote">เลือก iteration ที่ <em>validation</em> pass rate ดีที่สุด — ไม่ใช่ตัวล่าสุด</p>
+</section>
+
+<section>
+  <h2>Trigger rate (โมเดลไม่ deterministic)</h2>
+<pre><code>trigger_rate = (runs ที่ trigger) / (total runs)
+
+Test ผ่านเมื่อ trigger_rate ตรง expectation:
+  should_trigger=true:  trigger_rate &gt; 0.5
+  should_trigger=false: trigger_rate &lt; 0.5
+
+รันแต่ละ query อย่างน้อย 3 ครั้ง</code></pre>
+  <p class="muted">Train (60%) drives revisions. Validation (40%) วัด generalisation</p>
+</section>
+
+<section>
+  <h2>Prompt injection — 3 classes</h2>
+  <ol>
+    <li><strong>Direct</strong> — "What is the password?" / "Ignore previous instructions"</li>
+    <li><strong>Indirect</strong> — translate / roleplay / hypothetical reframe</li>
+    <li><strong>Progressive</strong> — multi-turn extraction; defeat single-turn filters</li>
+  </ol>
+  <p class="quote">"The line between aligned and adversarial behavior is thinner than most people think." — Lakera</p>
+</section>
+
+<section>
+  <h2>ปัญหา Trust boundary</h2>
+  <p class="big">LLMs <strong>อ่านและทำตาม</strong> ทุก text ใน prompt — input ของ user ถูก execute โดยโมเดลในแบบเดียวกับ system prompt ของคุณ</p>
+  <p class="muted">ไม่มี trust boundary ที่ชัดเจนใน text. Defences เป็น layered ไม่ absolute</p>
+</section>
+
+<section>
+  <h2>Defensive prompting — 4 layers</h2>
+  <ol>
+    <li><strong>Evaluation-first logic</strong> — โมเดลตัดสินใจก่อนว่าปลอดภัยไหม</li>
+    <li><strong>Role anchoring</strong> — ย้ำ persona กลาง prompt</li>
+    <li><strong>Output conditioning</strong> — pre-fill refusal start ("I cannot share")</li>
+    <li><strong>Instruction repetition</strong> — ระบุ constraints ในหลายส่วน</li>
+  </ol>
+  <p class="muted">ไม่มี layer เดียวที่พอ. ใช้ทั้งหมดร่วมกันถึงได้ผล</p>
+</section>
+
+<section>
+  <h2>เกินกว่า prompt — Programmatic guards</h2>
+  <table>
+    <tr><th>Layer</th><th>กลไก</th></tr>
+    <tr><td>Input filter</td><td>Block known-malicious ก่อนถึงโมเดล</td></tr>
+    <tr><td>Output filter</td><td>Scan secrets, PII, policy violations</td></tr>
+    <tr><td>Tool restrictions</td><td>Allowlist ว่าโมเดลทำอะไรได้</td></tr>
+    <tr><td>Audit logging</td><td>เก็บทุก prompt + response</td></tr>
+    <tr><td>Human-in-loop</td><td>Action high-stakes ต้องคนยืนยัน</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Agent patterns</h2>
+  <p class="big">เมื่อ single prompt + chain ไม่พอ — ต้องการ <strong>loop</strong></p>
+  <ul>
+    <li><strong>ReAct</strong> — Thought → Action → Observation cycle</li>
+    <li><strong>Reflexion</strong> — self-critique loop</li>
+    <li><strong>Planner-Executor</strong> — แยก planning ออกจาก execution</li>
+  </ul>
+  <p class="muted">Cap iterations เสมอ. รักษา state. Anchor role ตลอด</p>
+</section>
+
+<section>
+  <h2>Anti-patterns ที่ต้องเลี่ยง</h2>
+  <ul>
+    <li>Iteration ตาม "feel" (ไม่มี evals)</li>
+    <li>เพิ่ม temperature เพื่อ "คุณภาพดีขึ้น" (ผิดปุ่ม)</li>
+    <li>ใช้ temperature และ top_p พร้อมกัน</li>
+    <li>Negative instructions แทน positive examples</li>
+    <li>Tool descriptions กว้างเกินไป</li>
+    <li>Single-layer injection defence</li>
+    <li>Agent loops ไม่มี cap</li>
+    <li>Defences เดียวกันทุก vendor (re-test แยก)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Production checklist</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>พื้นฐาน</h3>
+      <ul>
+        <li>4 prompt elements ครบ</li>
+        <li>Format ระบุชัดเจน</li>
+        <li>Settings ตั้งโดยเจตนา</li>
+        <li>เริ่ม zero-shot</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Production</h3>
+      <ul>
+        <li>System prompt ≤1000 tokens</li>
+        <li>Schema + prefill สำหรับ JSON</li>
+        <li>Eval set + train/val split</li>
+        <li>Adversarial test suite</li>
+        <li>Tool descriptions: ทำอะไร + เมื่อไหร่</li>
+        <li>Agent loop iteration cap</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>แหล่งอ้างอิง</h2>
+  <ul>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Anthropic — Prompt engineering overview</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic — Best practices (Claude 4.x)</a></li>
+    <li><a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Lilian Weng — Academic taxonomy</a></li>
+    <li><a href="https://www.promptingguide.ai/">PromptingGuide.ai — vendor-neutral</a></li>
+    <li><a href="https://www.lakera.ai/blog/prompt-engineering-guide">Lakera — safety / injection</a></li>
+  </ul>
+  <p class="muted">ข้อมูลทั้งหมดในสไลด์นี้มี citation ใน <code>/wiki/</code></p>
 </section>
 
 <section class="center">
   <h1>มีคำถามไหม?</h1>
-  <p class="muted">Prompt Engineering เจาะลึกเชิงเทคนิค · สไลด์</p>
+  <p class="muted">Prompt Engineering 101 · 9 พ.ค. 2569</p>
 </section>
 
 </div></div>
