@@ -718,10 +718,16 @@ Each claim must cite a source from the context using [chunk_id] notation.</code>
   <table>
     <tr><th>Approach</th><th>When</th></tr>
     <tr><td>RAG</td><td>Need fresh / domain knowledge, traceability matters</td></tr>
+    <tr><td>LLM Wiki</td><td>Need <em>synthesis</em> that compounds across sessions — see <a href="https://supachai-j.github.io/llm-wiki-101/">LLM Wiki 101</a></td></tr>
     <tr><td>Fine-tuning</td><td>Stable behaviour change, large training set</td></tr>
     <tr><td>Long context only</td><td>Documents fit easily in context window</td></tr>
     <tr><td>Web search tool</td><td>Real-time external knowledge</td></tr>
   </table>
+
+  <div class="callout">
+    <h4>Related course</h4>
+    <p>RAG is stateless retrieval. The next step up is <strong><a href="https://supachai-j.github.io/llm-wiki-101/">LLM Wiki 101</a></strong> — a sister course covering Karpathy's pattern for persistent, LLM-maintained knowledge bases. Production systems often use both: RAG for raw chunks, LLM Wiki for synthesised understanding.</p>
+  </div>
 
   <div class="callout lab">
     <h4>Lab — try it now</h4>

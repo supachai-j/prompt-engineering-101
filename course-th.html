@@ -719,10 +719,16 @@ Each claim must cite a source from the context using [chunk_id] notation.</code>
   <table>
     <tr><th>วิธี</th><th>เมื่อไหร่</th></tr>
     <tr><td>RAG</td><td>ต้องการความรู้ใหม่ / domain, traceability สำคัญ</td></tr>
+    <tr><td>LLM Wiki</td><td>ต้องการ <em>synthesis</em> ที่สะสมข้าม session — ดู <a href="https://supachai-j.github.io/llm-wiki-101/">LLM Wiki 101</a></td></tr>
     <tr><td>Fine-tuning</td><td>เปลี่ยนพฤติกรรมที่ stable, training set ใหญ่</td></tr>
     <tr><td>Long context อย่างเดียว</td><td>Documents เล็ก ใส่ใน context window ได้</td></tr>
     <tr><td>Web search tool</td><td>ต้องการความรู้ real-time</td></tr>
   </table>
+
+  <div class="callout">
+    <h4>คอร์สที่เกี่ยวข้อง</h4>
+    <p>RAG คือ stateless retrieval. ขั้นต่อไปคือ <strong><a href="https://supachai-j.github.io/llm-wiki-101/">LLM Wiki 101</a></strong> — คอร์สพี่น้องเรื่อง pattern ของ Karpathy สำหรับ persistent LLM-maintained knowledge bases. ระบบ production มักใช้ทั้งคู่: RAG สำหรับ raw chunks, LLM Wiki สำหรับ synthesised understanding</p>
+  </div>
 
   <div class="callout lab">
     <h4>Lab — ลองเลย</h4>
